@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B41F539-50DC-4784-A074-53F881A25628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.iOS", "ChatView.iOS\ChatView.iOS.csproj", "{8919D881-4A5E-4721-B5AE-26D3626544B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.iOS", "Src\ChatView.iOS\ChatView.iOS.csproj", "{8919D881-4A5E-4721-B5AE-26D3626544B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.Android", "ChatView.Android\ChatView.Android.csproj", "{83F8109E-A65B-466A-811C-87A3096A51AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.Android", "Src\ChatView.Android\ChatView.Android.csproj", "{83F8109E-A65B-466A-811C-87A3096A51AA}"
 EndProject
-Project("{5DD5E4FA-CB73-4610-85AB-557B54E96AA9}") = "ChatView.NuGet", "ChatView.NuGet\ChatView.NuGet.nuproj", "{B9639CA1-5CD7-45FD-B552-F1F16A86CE78}"
+Project("{5DD5E4FA-CB73-4610-85AB-557B54E96AA9}") = "ChatView.NuGet", "Src\ChatView.NuGet\ChatView.NuGet.nuproj", "{B9639CA1-5CD7-45FD-B552-F1F16A86CE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.Shared", "ChatView.Shared\ChatView.Shared.csproj", "{20784887-BF46-48FD-9C32-849EC8A7A739}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatView.Shared", "Src\ChatView.Shared\ChatView.Shared.csproj", "{20784887-BF46-48FD-9C32-849EC8A7A739}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{522C7A83-DF5F-4429-80C8-6561482C6B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.iOS", "iOS\ChatViewTest.iOS.csproj", "{D31C00FB-4E32-4CA2-B6AD-DD39CC0BBB1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.iOS", "Test\iOS\ChatViewTest.iOS.csproj", "{D31C00FB-4E32-4CA2-B6AD-DD39CC0BBB1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.Droid", "Droid\ChatViewTest.Droid.csproj", "{9FA195BD-9B4F-459C-A3C2-E3F8D9937D62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.Droid", "Test\Droid\ChatViewTest.Droid.csproj", "{9FA195BD-9B4F-459C-A3C2-E3F8D9937D62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.Core", "ChatViewTest.Core\ChatViewTest.Core.csproj", "{11443D99-58DB-4AFA-B6A1-7AEDD4411F9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatViewTest.Core", "Test\ChatViewTest.Core\ChatViewTest.Core.csproj", "{11443D99-58DB-4AFA-B6A1-7AEDD4411F9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

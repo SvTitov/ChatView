@@ -70,7 +70,7 @@ namespace ChatViewTest.iOS.Renderers
             _view = new UIView(rect);
 
             _view.Layer.BorderColor = UIColor.Black.CGColor;
-            _view.Layer.BorderWidth = .3f;
+            _view.Layer.BorderWidth = 0f;
             _view.Layer.CornerRadius = 10;
         }
 
@@ -106,7 +106,7 @@ namespace ChatViewTest.iOS.Renderers
         {
             base.LayoutSubviews();
 
-            _view.BackgroundColor = NativeCell.IsIncoming ? UIColor.White : UIColor.Green;
+            _view.BackgroundColor = NativeCell.IsIncoming ? UIColor.FromRGB(66, 165, 245) : UIColor.FromRGB(0, 230, 118);
 
             var frame = ContentView.Frame;
             var sizeForMessage = GetSizeForText(this, MessageText.Text, _uIFontMessage) + BubblePadding;
