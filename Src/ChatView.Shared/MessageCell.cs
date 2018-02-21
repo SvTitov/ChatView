@@ -40,5 +40,14 @@ namespace ChatView.Shared
             get { return (MessageStatuses)GetValue(StatusProperty); }
             set { SetValue(StatusProperty, value); }
         }
+
+        public static readonly BindableProperty NameProperty =
+            BindableProperty.Create("Name", typeof(string), typeof(MessageCell), string.Empty);
+
+        public string Name
+        {
+            get { return (string)GetValue(NameProperty); }
+            set { SetValue(NameProperty, value); }
+        }
     }
 }

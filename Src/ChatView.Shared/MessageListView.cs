@@ -48,6 +48,8 @@ namespace ChatView.Shared
                 cell.SetBinding(MessageCell.MessageBodyProperty, "Message");
                 cell.SetBinding(MessageCell.DateProperty, "Date");
                 cell.SetBinding(MessageCell.IsIncomingProperty, "IsIncoming");
+                cell.SetBinding(MessageCell.NameProperty, "Name");
+                cell.SetBinding(MessageCell.StatusProperty, "Status");
 
                 return cell;
             });
