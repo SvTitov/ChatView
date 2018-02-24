@@ -23,6 +23,8 @@ namespace ChatViewTest.iOS.Renderers
             if (e.NewElement == null)
                 return;
 
+            this.Element.PropertyChanged += OnElementPropertyChanged;
+
             if (Control != null)
             {
                 Control.Transform = CoreGraphics.CGAffineTransform.MakeScale(1f, -1f);
@@ -34,6 +36,13 @@ namespace ChatViewTest.iOS.Renderers
                 Control.AddGestureRecognizer(longPressGesture);
 
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            this.Element.PropertyChanged -= OnElementPropertyChanged;
         }
 
 
@@ -81,6 +90,5 @@ namespace ChatViewTest.iOS.Renderers
             var property = type.GetProperty(name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.GetProperty);
             return (T)property.GetValue(@this);
         }
-    }
-
+    } 
 }

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ChatView.Shared;
 using Xamarin.Forms;
@@ -25,7 +26,7 @@ namespace ChatViewTest.Core
         public ChatViewModel()
         {
             List.AddRange(new MessageModel[] { new MessageModel {Message = "Планеты Солнечной системы (фото и описание) Это самая бгда Меркурий находится достаточно дам.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name="Svyatoslav Titov", Status = MessageStatuses.Delivered},
-                new MessageModel {Message = "Дамы я кекаю как бох.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
+                new MessageModel {Message = "Updated text.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
 
             AddCommand = new Command(OnAdd);
 
@@ -44,9 +45,17 @@ namespace ChatViewTest.Core
         public ICommand AddCommand { get; set; }
 
         int count = 0;
-        private void OnAdd(object obj)
+        private async void OnAdd(object obj)
         {
-            List.Insert(0, new MessageModel { Message = new Random().Next(1, 200).ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2 ) == 0), Status = MessageStatuses.Delivered });
+            var model = new MessageModel { Message = new Random().Next(1, 200).ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) == 0), Status = MessageStatuses.Sent };
+            List.Insert(0, model);
+            await Task.Factory.StartNew(async () => 
+            {
+                await Task.Delay(TimeSpan.FromSeconds(3));
+                model.Message = "daw dawd awd aw ";
+                model.Status = MessageStatuses.Delivered;
+            });
+
             //List.Add(new MessageModel { Message = new Random().Next().ToString(), Date = DateTime.Now.ToString("YYYY.MM.dd") });
         }
     }
