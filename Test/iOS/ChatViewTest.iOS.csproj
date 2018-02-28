@@ -109,7 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Renderers\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -122,10 +121,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Renderers\CustomListView.cs" />
-    <Compile Include="Renderers\MessageCellRenderer.cs" />
-    <Compile Include="Renderers\ListViewDataSourceWrapper.cs" />
-    <Compile Include="Renderers\NativeIOSCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\ChatView.iOS\ChatView.iOS.csproj">

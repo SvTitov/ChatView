@@ -6,7 +6,7 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
-namespace ChatViewTest.iOS.Renderers
+namespace ChatView
 {
     internal class NativeIOSCell : UITableViewCell, INativeElementView
     {
@@ -28,7 +28,7 @@ namespace ChatViewTest.iOS.Renderers
 
         #region ctor
 
-        public NativeIOSCell(MessageCell cell, string cellId )
+        public NativeIOSCell(MessageCell cell, string cellId)
             : base(UITableViewCellStyle.Default, cellId)
         {
             NativeCell = cell;
@@ -192,16 +192,16 @@ namespace ChatViewTest.iOS.Renderers
         static internal SizeF GetSizeForText(UIView tv, string text, UIFont font)
         {
             NSString s = new NSString(text);
-            var size = s.StringSize(font, new CGSize(tv.Bounds.Width * .7f - 10 - 22 , tv.Bounds.Height), UILineBreakMode.WordWrap);
+            var size = s.StringSize(font, new CGSize(tv.Bounds.Width * .7f - 10 - 22, tv.Bounds.Height), UILineBreakMode.WordWrap);
             return new SizeF((float)size.Width, (float)size.Height);
         }
 
         public float GetHeight(UIView tv)
         {
-            return GetSizeForText(tv, this.MessageText.Text, _uIFontMessage).Height 
-                                        + BubblePadding.Height 
-                                        + GetSizeForText(tv, this.DateText.Text, _uIFontInfo).Height 
-                                        + Spacing 
+            return GetSizeForText(tv, this.MessageText.Text, _uIFontMessage).Height
+                                        + BubblePadding.Height
+                                        + GetSizeForText(tv, this.DateText.Text, _uIFontInfo).Height
+                                        + Spacing
                                         + (string.IsNullOrWhiteSpace(NameText.Text) ? 0 : 20);
         }
     }

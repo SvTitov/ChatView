@@ -38,7 +38,7 @@ namespace ChatView.Shared
             control.IsScroll = (bool) newValue;
         }
 
-#endregion
+        #endregion
 
         public MessageListView()
         {
@@ -57,34 +57,11 @@ namespace ChatView.Shared
             this.SeparatorVisibility = SeparatorVisibility.None;
         }
 
-        protected override Cell CreateDefault(object item)
+        public event EventHandler<MessageCell> OnLongClick;
+
+        public void InvokeLongClick(MessageCell cell)
         {
-            return base.CreateDefault(item);
+            OnLongClick?.Invoke(this, cell);
         }
-
-
-        protected override void SetupContent(Cell content, int index)
-        {
-            base.SetupContent(content, index);
-
-            //var dd = content.GetType().GetField  ("DefaultCellHeight", BindingFlags.Public
-            //                                 | BindingFlags.Static 
-            //                                 | BindingFlags.FlattenHierarchy);
-			//
-            //var value = (int) dd.GetValue(dd);
-			//
-            //if (this.HeightRequest < _defaultSize.Item2 && this.HeightRequest < this.HeightRequest + value)
-            //{
-            //    if (this.HeightRequest < 0)
-            //        this.HeightRequest = 0;
-			//
-            //    var hh = content.Height;
-            //    var hhh = content.RenderHeight;
-			//
-            //    this.HeightRequest += value;
-            //    this.InvalidateMeasure();
-            //}
-        }
-
     }
 }

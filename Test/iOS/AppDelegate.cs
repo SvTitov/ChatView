@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ChatView;
 using ChatViewTest.Core;
-using ChatViewTest.iOS.Renderers;
 using Foundation;
 using UIKit;
 
@@ -17,6 +16,8 @@ namespace ChatViewTest.iOS
             global::Xamarin.Forms.Forms.Init();
 
             LoadApplication(new App());
+
+            MessageListViewRender.Initialize();
 
             return base.FinishedLaunching(app, options);
         }

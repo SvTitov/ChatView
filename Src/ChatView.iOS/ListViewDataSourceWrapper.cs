@@ -2,7 +2,7 @@
 using Foundation;
 using UIKit;
 
-namespace ChatViewTest.iOS.Renderers
+namespace ChatView
 {
     public class ListViewDataSourceWrapper : UITableViewSource
     {
