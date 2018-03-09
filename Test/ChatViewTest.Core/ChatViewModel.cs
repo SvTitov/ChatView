@@ -25,8 +25,8 @@ namespace ChatViewTest.Core
 
         public ChatViewModel()
         {
-            List.AddRange(new MessageModel[] { new MessageModel {Message = "Планеты Солнечной системы (фото и описание) Это самая бгда Меркурий находится достаточно дам.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name="Svyatoslav Titov", Status = MessageStatuses.Delivered},
-                new MessageModel {Message = "Updated text.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
+            List.AddRange(new MessageModel[] { new MessageModel { Message = "Планеты Солнечной системы (фото и описание) Это самая бгда Меркурий находится достаточно дам.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered } });
+               // new MessageModel {Message = "Updated text.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
 
             AddCommand = new Command(OnAdd);
 

@@ -6,7 +6,7 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
-namespace ChatView
+namespace ChatView.iOS
 {
     internal class NativeIOSCell : UITableViewCell, INativeElementView
     {

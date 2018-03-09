@@ -10,7 +10,7 @@
     <ProjectGuid>{8919D881-4A5E-4721-B5AE-26D3626544B4}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>ChatView</RootNamespace>
+    <RootNamespace>ChatView.iOS</RootNamespace>
     <AssemblyName>ChatView</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
   </PropertyGroup>

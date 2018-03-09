@@ -8,6 +8,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using ChatViewTest.Core;
+using ChatView.Droid;
 
 namespace ChatViewTest.Droid
 {
@@ -20,6 +21,8 @@ namespace ChatViewTest.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+
+            MessageListViewRenderer.Initialize();
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
 

@@ -5,8 +5,8 @@ using ChatView.Shared;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(MessageCell), typeof(MessageCellRenderer))]
-namespace ChatView
+[assembly: ExportRenderer(typeof(MessageCell), typeof(ChatView.iOS.MessageCellRenderer))]
+namespace ChatView.iOS
 {
     public class MessageCellRenderer : ViewCellRenderer
     {

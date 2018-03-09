@@ -1,5 +1,5 @@
 ﻿using System;
-namespace ChatView
+namespace ChatView.Droid
 {
     public class MessageAdapter
     {
