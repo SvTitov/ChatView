@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content;
+using Android.Views;
 using ChatView;
 using ChatView.Shared;
 using Xamarin.Forms;
@@ -20,6 +21,7 @@ namespace ChatView.Droid
             _context = context;
         }
 
+
         protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {
             base.OnElementChanged(e);
@@ -27,6 +29,7 @@ namespace ChatView.Droid
             if (this.Control != null)
             {
                 Control.StackFromBottom = true;
+                Control.TranscriptMode = Android.Widget.TranscriptMode.AlwaysScroll;
             }
         }
     }
