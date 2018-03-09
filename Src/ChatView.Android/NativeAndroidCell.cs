@@ -34,7 +34,10 @@ namespace ChatView.Droid
         private Android.Views.View CreateLayout(Context context)
         {
             Android.Widget.RelativeLayout layout = new Android.Widget.RelativeLayout(context);
+            var layoutParam = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             layout.SetPadding(30,15,30,15);
+            layout.LayoutParameters = layoutParam;
+
 
             //main layout
             Android.Widget.RelativeLayout mainView = new Android.Widget.RelativeLayout(context);
@@ -51,7 +54,6 @@ namespace ChatView.Droid
             mainView.Background = shape;
 
 
-
             //message text
             MessageText = new TextView(context);
             MessageText.SetTextColor(Android.Graphics.Color.Black);
@@ -62,27 +64,29 @@ namespace ChatView.Droid
             MessageText.LayoutParameters = paramMessageText;
 
 
+            // status text
+            StatusText = new TextView(context);
+            StatusText.SetTextColor(Android.Graphics.Color.Black);
+            StatusText.Text = StatusHelper.GetStatusString(NativeCell.Status);
+            StatusText.Id = Status_Text_Id;
+            StatusText.SetPadding(0, 0, 10, 0);
+            var paramStatusText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            paramStatusText.AddRule(LayoutRules.Below, Message_Text_Id);
+            paramStatusText.AddRule(LayoutRules.LeftOf, Date_Text_Id);
+            StatusText.LayoutParameters = paramStatusText;
+
             // date text
             DateText = new TextView(context);
+            DateText.SetMaxLines(1);
             DateText.SetTextColor(Android.Graphics.Color.Black);
             DateText.Text = NativeCell.Date;
             DateText.Id = Date_Text_Id;
             var paramDateText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             paramDateText.AddRule(LayoutRules.Below, Message_Text_Id);
-            paramDateText.AddRule(LayoutRules.RightOf, Status_Text_Id);
+            paramDateText.AddRule(LayoutRules.RightOf, Message_Text_Id);
             DateText.LayoutParameters = paramDateText;
 
          
-            // status text
-            StatusText = new TextView(context);
-            StatusText.SetTextColor(Android.Graphics.Color.Black);
-            StatusText.Text = GetStatusString(NativeCell.Status);
-            StatusText.Id = Status_Text_Id;
-            var paramStatusText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            paramStatusText.AddRule(LayoutRules.Below, Message_Text_Id);
-            StatusText.LayoutParameters = paramStatusText;
-			
-			
             // name text
             NameText = new TextView(context);
             NameText.SetTextColor(Android.Graphics.Color.Black);
@@ -108,21 +112,10 @@ namespace ChatView.Droid
         {
             this.MessageText.Text = messageCell.MessageBody;
             this.DateText.Text = messageCell.Date;
-            this.StatusText.Text = GetStatusString(messageCell.Status);
+            this.StatusText.Text = StatusHelper.GetStatusString(messageCell.Status);
             this.NameText.Text = messageCell.Name;
 
             this.NativeCell = messageCell;
-        }
-
-
-        private string GetStatusString(MessageStatuses status)
-        {
-            string stat = string.Empty;
-            if (status == MessageStatuses.Sent)
-                stat = "✓";
-            else if (status == MessageStatuses.Delivered)
-                stat = "✓✓";
-            return stat;
         }
     }
 }

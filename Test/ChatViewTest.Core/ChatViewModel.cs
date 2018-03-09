@@ -25,7 +25,7 @@ namespace ChatViewTest.Core
 
         public ChatViewModel()
         {
-            List.AddRange(new MessageModel[] { new MessageModel { Message = "Планеты Солнечной системы (фото и описание) Это самая бгда Меркурий находится достаточно дам.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered } });
+            List.AddRange(new MessageModel[] { new MessageModel { Message = "Планеты  самая бгда дам.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered } });
                // new MessageModel {Message = "Updated text.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
 
             AddCommand = new Command(OnAdd);
@@ -47,8 +47,8 @@ namespace ChatViewTest.Core
         int count = 0;
         private async void OnAdd(object obj)
         {
-            var model = new MessageModel { Message = new Random().Next(1, 200).ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) == 0), Status = MessageStatuses.Sent };
-            List.Insert(0, model);
+            var model = new MessageModel { Message = new Random().Next(100000, 2000000).ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) == 0), Status = MessageStatuses.Sent };
+            List.Add(model);
             await Task.Factory.StartNew(async () => 
             {
                 await Task.Delay(TimeSpan.FromSeconds(3));

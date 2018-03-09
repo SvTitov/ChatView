@@ -153,7 +153,7 @@ namespace ChatView.iOS
             bool needUpdate = false;
             if (MessageCell.StatusProperty.PropertyName == e.PropertyName)
             {
-                StatusText.Text = GetStatusString((sender as MessageCell).Status);
+                StatusText.Text = StatusHelper.GetStatusString((sender as MessageCell).Status);
                 needUpdate = true;
             }
             if (MessageCell.MessageBodyProperty.PropertyName == e.PropertyName)
@@ -172,22 +172,13 @@ namespace ChatView.iOS
         {
             MessageText.Text = cell.MessageBody;
             DateText.Text = cell.Date;
-            StatusText.Text = GetStatusString(cell.Status);
+            StatusText.Text = StatusHelper.GetStatusString(cell.Status);
             NameText.Text = cell.Name;
 
             NativeCell = cell;
             SetNeedsLayout();
         }
 
-        private string GetStatusString(MessageStatuses status)
-        {
-            string stat = string.Empty;
-            if (status == MessageStatuses.Sent)
-                stat = "✓";
-            else if (status == MessageStatuses.Delivered)
-                stat = "✓✓";
-            return stat;
-        }
 
         static internal SizeF GetSizeForText(UIView tv, string text, UIFont font)
         {
