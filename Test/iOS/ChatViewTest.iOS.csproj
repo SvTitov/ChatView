@@ -11,6 +11,7 @@
     <RootNamespace>ChatViewTest.iOS</RootNamespace>
     <AssemblyName>ChatViewTest.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>0.9</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>

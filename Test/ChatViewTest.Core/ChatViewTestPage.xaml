@@ -6,7 +6,7 @@
     x:Class="ChatViewTest.Core.ChatViewTestPage">
 	<ContentPage.Content>
         <StackLayout >
-            <Button Command="{Binding AddCommand}" Text="Click"/>
+            <!--<Button Command="{Binding AddCommand}" Text="Click"/>-->
             <chat:MessageListView 
                 x:Name="OfList"
                 ItemsSource="{Binding List}"
