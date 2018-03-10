@@ -17,7 +17,7 @@ namespace ChatViewTest.iOS
 
             LoadApplication(new App());
 
-            ChatView.iOS.MessageListViewRender.Initialize();
+            ChatView.iOS.MessageListViewRenderer.Initialize();
 
             return base.FinishedLaunching(app, options);
         }

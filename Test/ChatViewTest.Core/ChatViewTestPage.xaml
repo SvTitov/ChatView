@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
-    xmlns:chat="clr-namespace:ChatView.Shared;assembly=ChatView.Shared"
+    xmlns:chatview="clr-namespace:ChatView.Shared;assembly=ChatView.Shared"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
     x:Class="ChatViewTest.Core.ChatViewTestPage">
 	<ContentPage.Content>
         <StackLayout >
             <!--<Button Command="{Binding AddCommand}" Text="Click"/>-->
-            <chat:MessageListView 
+            <chatview:MessageListView 
                 x:Name="OfList"
                 ItemsSource="{Binding List}"
                 VerticalOptions="FillAndExpand"

@@ -8,10 +8,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(MessageListView), typeof(ChatView.iOS.MessageListViewRender))]
+[assembly: ExportRenderer(typeof(MessageListView), typeof(ChatView.iOS.MessageListViewRenderer))]
 namespace ChatView.iOS
 {
-    public class MessageListViewRender : ListViewRenderer
+    public class MessageListViewRenderer : ListViewRenderer
     {
         public static void Initialize() { }
 
