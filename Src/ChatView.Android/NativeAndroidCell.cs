@@ -45,7 +45,7 @@ namespace ChatView.Droid
             mainView.Orientation = Orientation.Vertical;
             paramLayout.AddRule(NativeCell.IsIncoming ? LayoutRules.AlignParentLeft : LayoutRules.AlignParentRight);
             paramLayout.SetMargins(NativeCell.IsIncoming ? 0 : 50, 0, NativeCell.IsIncoming ? 50 : 0, 0);
-            mainView.SetPadding(20, 20, 20, 20);
+            mainView.SetPadding(30, 30, 30, 30);
             mainView.LayoutParameters = paramLayout;
 
             //set drawable
@@ -58,7 +58,7 @@ namespace ChatView.Droid
             // name text
             NameText = new TextView(context);
             NameText.SetTextColor(Android.Graphics.Color.Black);
-            NameText.TextSize = 16;
+            NameText.TextSize = 18;
             NameText.SetTextColor(Android.Graphics.Color.Blue);
             NameText.Text = NativeCell.Name;
             NameText.Id = Name_Text_Id;
@@ -69,9 +69,9 @@ namespace ChatView.Droid
             MessageText = new TextView(context);
             MessageText.SetTextColor(Android.Graphics.Color.Black);
             MessageText.Text = NativeCell.MessageBody;
+            MessageText.TextSize = 14;
             MessageText.Id = Message_Text_Id;
             var paramMessageText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            //paramMessageText.AddRule(LayoutRules.Below, Name_Text_Id);
             MessageText.LayoutParameters = paramMessageText;
 
             // status layout
@@ -79,8 +79,6 @@ namespace ChatView.Droid
             linearLayout.Orientation = Orientation.Horizontal;
             var paramlinearLayout = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             paramlinearLayout.Gravity = Android.Views.GravityFlags.Right;
-            //paramlinearLayout.AddRule(LayoutRules.Below, Message_Text_Id);
-            //paramlinearLayout.AddRule(LayoutRules.AlignRight, Message_Text_Id);
             linearLayout.SetGravity(Android.Views.GravityFlags.Right);
             linearLayout.LayoutParameters = paramlinearLayout;
 
@@ -89,22 +87,24 @@ namespace ChatView.Droid
             StatusText.SetTextColor(Android.Graphics.Color.Black);
             StatusText.Text = StatusHelper.GetStatusString(NativeCell.Status);
             StatusText.Id = Status_Text_Id;
+            StatusText.TextSize = 12;
             StatusText.SetPadding(0, 0, 10, 0);
-            var paramStatusText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            paramStatusText.AddRule(LayoutRules.Below, Message_Text_Id);
-            paramStatusText.AddRule(LayoutRules.LeftOf, Date_Text_Id);
+            StatusText.Gravity = Android.Views.GravityFlags.Left;
+            var paramStatusText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            paramStatusText.Gravity = Android.Views.GravityFlags.Left;
             StatusText.LayoutParameters = paramStatusText;
-            linearLayout.AddView(StatusText);
+            if (!NativeCell.IsIncoming)
+                linearLayout.AddView(StatusText);
 
             // date text
             DateText = new TextView(context);
-            DateText.SetMaxLines(1);
             DateText.SetTextColor(Android.Graphics.Color.Black);
             DateText.Text = NativeCell.Date;
+            DateText.SetLines(1);
+            DateText.TextSize = 12;
+            DateText.SetMinWidth(LayoutParams.WrapContent);
             DateText.Id = Date_Text_Id;
-            var paramDateText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            paramDateText.AddRule(LayoutRules.Below, Message_Text_Id);
-            paramDateText.AddRule(LayoutRules.AlignRight, Message_Text_Id);
+            var paramDateText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             DateText.LayoutParameters = paramDateText;
             linearLayout.AddView(DateText);
 
@@ -114,11 +114,6 @@ namespace ChatView.Droid
 
             mainView.AddView(MessageText);
             mainView.AddView(linearLayout);
-            //mainView.AddView(DateText);
-            //mainView.AddView(StatusText);
-
-
-
             layout.AddView(mainView);
 
             return layout;

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Reflection;
 using ChatView;
 using ChatView.Shared;
@@ -28,6 +30,7 @@ namespace ChatView.iOS
                 Control.Transform = CoreGraphics.CGAffineTransform.MakeScale(1f, -1f);
                 Control.RowHeight = UITableView.AutomaticDimension;
                 Control.Source = new ListViewDataSourceWrapper(this.GetFieldValue<UITableViewSource>(typeof(ListViewRenderer), "_dataSource"));
+
                 Control.BackgroundColor = UIColor.Clear;
 
                 var longPressGesture = new UILongPressGestureRecognizer(LongPressMethod);
@@ -43,11 +46,18 @@ namespace ChatView.iOS
                 var indexPath = Control.IndexPathForRowAtPoint(gestureRecognizer.LocationInView(Control));
                 if (indexPath != null)
                 {
-                    var cell = Control.CellAt(indexPath);
-                    var nCell = (cell as NativeIOSCell).NativeCell;
+                    int index = 0;
+                    object item = null;
+                    foreach (var i in (Element as MessageListView).ItemsSource)
+                    {
+                        if (index++ == indexPath.Row)
+                        {
+                            item = i;
+                            break;
+                        }
+                    }
 
-                    if (nCell != null)
-                        (this.Element as MessageListView).InvokeLongClick(nCell);
+                    (this.Element as MessageListView).InvokeLongClick(item);
                 }
             }
         }

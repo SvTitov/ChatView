@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.Content;
 using Android.Views;
+using Android.Widget;
 using ChatView;
 using ChatView.Shared;
 using Xamarin.Forms;
@@ -21,16 +22,29 @@ namespace ChatView.Droid
             _context = context;
         }
 
-
-        protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
-        {
+		protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.ListView> e)
+		{
             base.OnElementChanged(e);
 
             if (this.Control != null)
             {
                 Control.StackFromBottom = true;
                 Control.TranscriptMode = Android.Widget.TranscriptMode.AlwaysScroll;
+                Control.ItemLongClick += OnLongClick;
             }
+		}
+
+        private void OnLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            var item = Control.GetItemAtPosition(e.Position);
+            var value = item.GetType().GetProperty("Instance").GetValue(item, null);
+            (Element as MessageListView).InvokeLongClick(value);
         }
-    }
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+            Control.ItemLongClick -= OnLongClick;
+		}
+	}
 }

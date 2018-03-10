@@ -14,6 +14,12 @@ namespace ChatViewTest.Core
         {
             InitializeComponent();
             this.BindingContext = new ChatViewModel();
+
+            OfList.OnLongClick += OfList_OnLongClick;
+        }
+
+        void OfList_OnLongClick(object sender, object e)
+        {
         }
     }
 }

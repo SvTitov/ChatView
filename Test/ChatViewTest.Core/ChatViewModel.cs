@@ -11,9 +11,9 @@ namespace ChatViewTest.Core
 {
     public class ChatViewModel :INotifyPropertyChanged
     {
-        private ObservableCollection<MessageModel> _list = new ObservableCollection<MessageModel>();
+        private MessageCollection<MessageModel> _list = new MessageCollection<MessageModel>();
 
-        public ObservableCollection<MessageModel> List 
+        public MessageCollection<MessageModel> List 
         { 
             get { return _list; }
             set
@@ -25,7 +25,13 @@ namespace ChatViewTest.Core
 
         public ChatViewModel()
         {
-            List.AddRange(new MessageModel[] { new MessageModel { Message = "Планеты   d daw da a wdaw daw awd wad awd awd awd wa aw a aсамая бгда дам.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered } });
+            List.AddRange(new MessageModel[] { new MessageModel { Message = @"The rose is red, the violet’s blue,
+The honey’s sweet, and so are you.
+Thou are my love and I am thine;
+I drew thee to my Valentine:
+The lot was cast and then I drew,
+And Fortune said it shou’d be you.
+", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered } });
                // new MessageModel {Message = "Updated text.", Date=DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = false, Status = MessageStatuses.Delivered}}); 
 
             AddCommand = new Command(OnAdd);
@@ -47,16 +53,8 @@ namespace ChatViewTest.Core
         int count = 0;
         private async void OnAdd(object obj)
         {
-            var model = new MessageModel { Message = new Random().Next(100000, 2000000).ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) == 0), Status = MessageStatuses.Sent, Name="Name" };
+            var model = new MessageModel { Message = "Oh, that's cool! 💖".ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) != 0), Status = MessageStatuses.Sent, Name="Name" };
             List.Add(model);
-            await Task.Factory.StartNew(async () => 
-            {
-                await Task.Delay(TimeSpan.FromSeconds(3));
-                model.Message = "daw dawd awd aw ";
-                model.Status = MessageStatuses.Delivered;
-            });
-
-            //List.Add(new MessageModel { Message = new Random().Next().ToString(), Date = DateTime.Now.ToString("YYYY.MM.dd") });
         }
     }
 }

@@ -57,9 +57,9 @@ namespace ChatView.Shared
             this.SeparatorVisibility = SeparatorVisibility.None;
         }
 
-        public event EventHandler<MessageCell> OnLongClick;
+        public event EventHandler<object> OnLongClick;
 
-        public void InvokeLongClick(MessageCell cell)
+        public void InvokeLongClick(object cell)
         {
             OnLongClick?.Invoke(this, cell);
         }
