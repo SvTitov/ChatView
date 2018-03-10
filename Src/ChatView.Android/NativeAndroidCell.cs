@@ -40,8 +40,9 @@ namespace ChatView.Droid
 
 
             //main layout
-            Android.Widget.RelativeLayout mainView = new Android.Widget.RelativeLayout(context);
+            Android.Widget.LinearLayout mainView = new Android.Widget.LinearLayout(context);
             var paramLayout = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            mainView.Orientation = Orientation.Vertical;
             paramLayout.AddRule(NativeCell.IsIncoming ? LayoutRules.AlignParentLeft : LayoutRules.AlignParentRight);
             paramLayout.SetMargins(NativeCell.IsIncoming ? 0 : 50, 0, NativeCell.IsIncoming ? 50 : 0, 0);
             mainView.SetPadding(20, 20, 20, 20);
@@ -49,20 +50,39 @@ namespace ChatView.Droid
 
             //set drawable
             GradientDrawable shape = new GradientDrawable();
-            shape.SetCornerRadius(20);
+            shape.SetCornerRadius(40);
             shape.SetColor(NativeCell.IsIncoming ? Android.Graphics.Color.Rgb(66, 165, 245) : Android.Graphics.Color.Rgb(0, 230, 118));
             mainView.Background = shape;
 
+
+            // name text
+            NameText = new TextView(context);
+            NameText.SetTextColor(Android.Graphics.Color.Black);
+            NameText.TextSize = 16;
+            NameText.SetTextColor(Android.Graphics.Color.Blue);
+            NameText.Text = NativeCell.Name;
+            NameText.Id = Name_Text_Id;
+            var paramNameText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            NameText.LayoutParameters = paramNameText;
 
             //message text
             MessageText = new TextView(context);
             MessageText.SetTextColor(Android.Graphics.Color.Black);
             MessageText.Text = NativeCell.MessageBody;
             MessageText.Id = Message_Text_Id;
-            var paramMessageText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            paramMessageText.AddRule(LayoutRules.Below, Name_Text_Id);
+            var paramMessageText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            //paramMessageText.AddRule(LayoutRules.Below, Name_Text_Id);
             MessageText.LayoutParameters = paramMessageText;
 
+            // status layout
+            LinearLayout linearLayout = new LinearLayout(context);
+            linearLayout.Orientation = Orientation.Horizontal;
+            var paramlinearLayout = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
+            paramlinearLayout.Gravity = Android.Views.GravityFlags.Right;
+            //paramlinearLayout.AddRule(LayoutRules.Below, Message_Text_Id);
+            //paramlinearLayout.AddRule(LayoutRules.AlignRight, Message_Text_Id);
+            linearLayout.SetGravity(Android.Views.GravityFlags.Right);
+            linearLayout.LayoutParameters = paramlinearLayout;
 
             // status text
             StatusText = new TextView(context);
@@ -74,6 +94,7 @@ namespace ChatView.Droid
             paramStatusText.AddRule(LayoutRules.Below, Message_Text_Id);
             paramStatusText.AddRule(LayoutRules.LeftOf, Date_Text_Id);
             StatusText.LayoutParameters = paramStatusText;
+            linearLayout.AddView(StatusText);
 
             // date text
             DateText = new TextView(context);
@@ -83,25 +104,20 @@ namespace ChatView.Droid
             DateText.Id = Date_Text_Id;
             var paramDateText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             paramDateText.AddRule(LayoutRules.Below, Message_Text_Id);
-            paramDateText.AddRule(LayoutRules.RightOf, Message_Text_Id);
+            paramDateText.AddRule(LayoutRules.AlignRight, Message_Text_Id);
             DateText.LayoutParameters = paramDateText;
+            linearLayout.AddView(DateText);
 
          
-            // name text
-            NameText = new TextView(context);
-            NameText.SetTextColor(Android.Graphics.Color.Black);
-            NameText.Text = NativeCell.Name;
-            NameText.Id = Name_Text_Id;
-            var paramNameText = new Android.Widget.RelativeLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
-            NameText.LayoutParameters = paramNameText;
-
-
-            mainView.AddView(MessageText);
-            mainView.AddView(DateText);
-            mainView.AddView(StatusText);
-
             if (!string.IsNullOrWhiteSpace(NameText.Text) && NativeCell.IsIncoming)
                 mainView.AddView(NameText);
+
+            mainView.AddView(MessageText);
+            mainView.AddView(linearLayout);
+            //mainView.AddView(DateText);
+            //mainView.AddView(StatusText);
+
+
 
             layout.AddView(mainView);
 
