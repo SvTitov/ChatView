@@ -24,6 +24,7 @@ And use
 ```
 
 Add `MessageListViewRenderer.Initialize();` into `MainActivity` - `OnCreate` 
+
 Add `MessageListViewRenderer.Initialize();` into `AppDelegate` - `FinishedLaunching`
 
 ## NuGet
