@@ -31,8 +31,8 @@ The honey’s sweet, and so are you.
 Thou are my love and I am thine;
 I drew thee to my Valentine:
 The lot was cast and then I drew,
-And Fortune said it shou’d be you.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name = "Svyatoslav Titov", Status = MessageStatuses.Delivered },
-                new MessageModel { Message = "Oh, that's cool! 💖".ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) != 0), Status = MessageStatuses.Sent, Name="Name" }
+And Fortune said it shou’d be you.", Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = true, Name="Svyatoslav Titov" ,Status = MessageStatuses.Delivered },
+                new MessageModel { Message = "Oh, that's cool! 💖".ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) != 0), Status = MessageStatuses.Sent, Name="Name" },
             });
 
             AddCommand = new Command(OnAdd);

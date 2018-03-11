@@ -4,6 +4,7 @@ using Android.Graphics.Drawables;
 using Android.Widget;
 using ChatView.Shared;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
 
 namespace ChatView.Droid
 {
@@ -50,16 +51,15 @@ namespace ChatView.Droid
 
             //set drawable
             GradientDrawable shape = new GradientDrawable();
-            shape.SetCornerRadius(40);
-            shape.SetColor(NativeCell.IsIncoming ? Android.Graphics.Color.Rgb(66, 165, 245) : Android.Graphics.Color.Rgb(0, 230, 118));
+            shape.SetCornerRadius(NativeCell.CornerRadius * 2);
+            shape.SetColor(NativeCell.IsIncoming ? NativeCell.IncomingColor.ToAndroid() : NativeCell.OutgoingColor.ToAndroid());
             mainView.Background = shape;
 
 
             // name text
             NameText = new TextView(context);
-            NameText.SetTextColor(Android.Graphics.Color.Black);
-            NameText.TextSize = 18;
-            NameText.SetTextColor(Android.Graphics.Color.Blue);
+            NameText.SetTextColor(NativeCell.NameFontColor.ToAndroid());
+            NameText.TextSize = NativeCell.NameFontSize;
             NameText.Text = NativeCell.Name;
             NameText.Id = Name_Text_Id;
             var paramNameText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
@@ -67,9 +67,9 @@ namespace ChatView.Droid
 
             //message text
             MessageText = new TextView(context);
-            MessageText.SetTextColor(Android.Graphics.Color.Black);
+            MessageText.SetTextColor(NativeCell.TextFontColor.ToAndroid());
             MessageText.Text = NativeCell.MessageBody;
-            MessageText.TextSize = 14;
+            MessageText.TextSize = NativeCell.TextFontSize;
             MessageText.Id = Message_Text_Id;
             var paramMessageText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
             MessageText.LayoutParameters = paramMessageText;
@@ -84,10 +84,10 @@ namespace ChatView.Droid
 
             // status text
             StatusText = new TextView(context);
-            StatusText.SetTextColor(Android.Graphics.Color.Black);
+            StatusText.SetTextColor(NativeCell.InfoFontColor.ToAndroid());
             StatusText.Text = StatusHelper.GetStatusString(NativeCell.Status);
             StatusText.Id = Status_Text_Id;
-            StatusText.TextSize = 12;
+            StatusText.TextSize = NativeCell.InfoFontSize;
             StatusText.SetPadding(0, 0, 10, 0);
             StatusText.Gravity = Android.Views.GravityFlags.Left;
             var paramStatusText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
@@ -98,10 +98,10 @@ namespace ChatView.Droid
 
             // date text
             DateText = new TextView(context);
-            DateText.SetTextColor(Android.Graphics.Color.Black);
+            DateText.SetTextColor(NativeCell.InfoFontColor.ToAndroid());
             DateText.Text = NativeCell.Date;
             DateText.SetLines(1);
-            DateText.TextSize = 12;
+            DateText.TextSize = NativeCell.InfoFontSize;
             DateText.SetMinWidth(LayoutParams.WrapContent);
             DateText.Id = Date_Text_Id;
             var paramDateText = new Android.Widget.LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);

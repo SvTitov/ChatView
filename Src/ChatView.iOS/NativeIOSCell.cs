@@ -5,6 +5,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace ChatView.iOS
 {
@@ -22,9 +23,6 @@ namespace ChatView.iOS
         public UILabel NameText { get; set; }
 
         public static float Spacing { get; set; } = 10;
-        private static UIFont _uIFontMessage = UIFont.SystemFontOfSize(14);
-        private static UIFont _uIFontInfo = UIFont.SystemFontOfSize(10);
-        private static UIFont _uIFontName = UIFont.SystemFontOfSize(16);
 
         #region ctor
 
@@ -42,32 +40,32 @@ namespace ChatView.iOS
 
             MessageText = new UILabel()
             {
-                TextColor = UIColor.Black,
+                TextColor = NativeCell.TextFontColor.ToUIColor(),
                 Lines = 0,
-                Font = _uIFontMessage,
+                Font = UIFont.SystemFontOfSize(NativeCell.TextFontSize),
                 LineBreakMode = UILineBreakMode.WordWrap,
                 BackgroundColor = UIColor.Clear
             };
 
             DateText = new UILabel()
             {
-                TextColor = UIColor.Black,
+                TextColor = NativeCell.InfoFontColor.ToUIColor(),
                 Lines = 1,
-                Font = _uIFontInfo
+                Font = UIFont.SystemFontOfSize(NativeCell.InfoFontSize)
             };
 
             StatusText = new UILabel()
             {
-                TextColor = UIColor.Black,
+                TextColor = NativeCell.InfoFontColor.ToUIColor(),
                 Lines = 1,
-                Font = _uIFontInfo
+                Font = UIFont.SystemFontOfSize(NativeCell.InfoFontSize)
             };
 
             NameText = new UILabel()
             {
-                TextColor = UIColor.Blue,
+                TextColor = NativeCell.NameFontColor.ToUIColor(),
                 Lines = 1,
-                Font = _uIFontName
+                Font = UIFont.SystemFontOfSize(NativeCell.NameFontSize)
             };
 
             _view.AddSubview(StatusText);
@@ -84,11 +82,11 @@ namespace ChatView.iOS
         {
             base.LayoutSubviews();
 
-            _view.BackgroundColor = NativeCell.IsIncoming ? UIColor.FromRGB(66, 165, 245) : UIColor.FromRGB(0, 230, 118);
+            _view.BackgroundColor = NativeCell.IsIncoming ? NativeCell.IncomingColor.ToUIColor() : NativeCell.OutgoingColor.ToUIColor();
 
             var frame = ContentView.Frame;
-            var sizeForMessage = GetSizeForText(this, MessageText.Text, _uIFontMessage) + BubblePadding;
-            var sizeForDate = GetSizeForText(this, DateText.Text, _uIFontInfo) + BubblePadding;
+            var sizeForMessage = GetSizeForText(this, MessageText.Text, UIFont.SystemFontOfSize(NativeCell.TextFontSize)) + BubblePadding;
+            var sizeForDate = GetSizeForText(this, DateText.Text, UIFont.SystemFontOfSize(NativeCell.InfoFontSize)) + BubblePadding;
 
             _view.SetNeedsDisplay();
 
@@ -116,7 +114,7 @@ namespace ChatView.iOS
             }
             else
             {
-                var sizeForStatus = GetSizeForText(this, StatusText.Text, _uIFontInfo) + BubblePadding;
+                var sizeForStatus = GetSizeForText(this, StatusText.Text, UIFont.SystemFontOfSize(NativeCell.InfoFontSize)) + BubblePadding;
                 var infoLineSize = sizeForStatus + sizeForDate;
 
                 float bubleWidth = bubbleSize.Width;
@@ -145,7 +143,7 @@ namespace ChatView.iOS
 
             _view.Layer.BorderColor = UIColor.Black.CGColor;
             _view.Layer.BorderWidth = 0f;
-            _view.Layer.CornerRadius = 10;
+            _view.Layer.CornerRadius = NativeCell.CornerRadius;
         }
 
         void OnPropertyChangedEventHandler(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -189,11 +187,11 @@ namespace ChatView.iOS
 
         public float GetHeight(UIView tv)
         {
-            return GetSizeForText(tv, this.MessageText.Text, _uIFontMessage).Height
-                                        + BubblePadding.Height
-                                        + GetSizeForText(tv, this.DateText.Text, _uIFontInfo).Height
-                                        + Spacing
-                                        + (string.IsNullOrWhiteSpace(NameText.Text) ? 0 : 20);
+            var cellSize = GetSizeForText(tv, this.NativeCell.MessageBody, UIFont.SystemFontOfSize(NativeCell.TextFontSize))
+                    + BubblePadding
+                    + GetSizeForText(tv, this.NativeCell.Date, UIFont.SystemFontOfSize(NativeCell.InfoFontSize));
+
+            return cellSize.Height + Spacing + (NativeCell.IsIncoming ? 20 : 0);
         }
     }
 }

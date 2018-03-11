@@ -11,7 +11,27 @@
                 x:Name="OfList"
                 ItemsSource="{Binding List}"
                 VerticalOptions="FillAndExpand"
-                HorizontalOptions="FillAndExpand"/>
+                HorizontalOptions="FillAndExpand">
+                <chatview:MessageListView.ItemTemplate>
+                    <DataTemplate>
+                        <chatview:MessageCell 
+                            TextFontSize="14"
+                            InfoFontSize="10"
+                            NameFontSize="16"
+                            CornerRadius="16"
+                            IncomingColor="#827717"
+                            OutgoingColor="#689F38"
+                            TextFontColor="#4E342E"
+                            NameFontColor="#FF3D00"
+                            InfoFontColor="#607D8B"
+                            MessageBody="{Binding Message}"
+                            Date="{Binding Date}"
+                            IsIncoming="{Binding IsIncoming}"
+                            Name="{Binding Name}"
+                            Status="{Binding Status}"/>
+                    </DataTemplate>
+                </chatview:MessageListView.ItemTemplate>
+            </chatview:MessageListView>
         </StackLayout>
 	</ContentPage.Content>
 </ContentPage>

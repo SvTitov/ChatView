@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using ChatView.Shared;
 
-namespace ChatViewTest.Core
+namespace ChatView.Shared
 {
     public class MessageModel : INotifyPropertyChanged
     {
@@ -22,10 +21,10 @@ namespace ChatViewTest.Core
             }
         }
 
-        public string Date 
-        { 
+        public string Date
+        {
             get { return _date; }
-            set 
+            set
             {
                 _date = value;
                 NotifyPropertyChanged(nameof(Date));
@@ -35,17 +34,17 @@ namespace ChatViewTest.Core
         public bool IsIncoming
         {
             get { return _isIncoming; }
-            set 
+            set
             {
                 _isIncoming = value;
                 NotifyPropertyChanged(nameof(IsIncoming));
             }
         }
 
-        public string Name 
+        public string Name
         {
             get { return _name; }
-            set 
+            set
             {
                 _name = value;
                 NotifyPropertyChanged(nameof(Name));
@@ -53,15 +52,17 @@ namespace ChatViewTest.Core
         }
 
 
-        public MessageStatuses Status 
-        { 
+        public MessageStatuses Status
+        {
             get { return _status; }
-            set 
-            { 
+            set
+            {
                 _status = value;
                 NotifyPropertyChanged(nameof(Status));
             }
         }
+
+        public object Tag { get; set; }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

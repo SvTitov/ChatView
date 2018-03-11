@@ -20,17 +20,9 @@ namespace ChatView.Shared
 
         public bool IsScroll 
         {
-            get 
-            {
-                return (bool)GetValue(IsScrollProperty);
-            }
-            set 
-            {
-                SetValue(IsScrollProperty, value);
-            }
+            get => (bool)GetValue(IsScrollProperty);
+            set => SetValue(IsScrollProperty, value);
         }
-
-
 
         private static void IsScrollChanged(BindableObject bindable, object oldValue, object newValue)
         {
