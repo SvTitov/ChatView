@@ -69,7 +69,7 @@ Add `MessageListViewRenderer.Initialize();` into `AppDelegate` - `FinishedLaunch
 
 ## NuGet
 
-https://www.nuget.org/packages/ChatView/0.9.0
+https://www.nuget.org/packages/ChatView/0.9.1
 
 ## License
 
