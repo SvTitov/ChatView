@@ -124,14 +124,6 @@
     <Compile Include="AppDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\ChatView.iOS\ChatView.iOS.csproj">
-      <Project>{8919D881-4A5E-4721-B5AE-26D3626544B4}</Project>
-      <Name>ChatView.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Src\ChatView.Shared\ChatView.Shared.csproj">
-      <Project>{20784887-BF46-48FD-9C32-849EC8A7A739}</Project>
-      <Name>ChatView.Shared</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChatViewTest.Core\ChatViewTest.Core.csproj">
       <Project>{11443D99-58DB-4AFA-B6A1-7AEDD4411F9B}</Project>
       <Name>ChatViewTest.Core</Name>
