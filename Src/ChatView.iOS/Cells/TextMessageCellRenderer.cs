@@ -1,24 +1,25 @@
 ﻿using System;
 using System.ComponentModel;
-using ChatView;
+using ChatView.iOS.NativeCells;
 using ChatView.Shared;
+using ChatView.Shared.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(MessageCell), typeof(ChatView.iOS.MessageCellRenderer))]
-namespace ChatView.iOS
+[assembly: ExportRenderer(typeof(TextMessageCell), typeof(ChatView.iOS.Cells.TextMessageCellRenderer))]
+namespace ChatView.iOS.Cells
 {
-    public class MessageCellRenderer : ViewCellRenderer
+    public class TextMessageCellRenderer : ViewCellRenderer
     {
-        private NativeIOSCell _cell;
+        private TextNativeCell _cell;
 
         public override UIKit.UITableViewCell GetCell(Cell item, UIKit.UITableViewCell reusableCell, UIKit.UITableView tv)
         {
-            var messageCell = (MessageCell)item;
+            var messageCell = (TextMessageCell)item;
 
-            _cell = reusableCell as NativeIOSCell;
+            _cell = reusableCell as TextNativeCell;
             if (_cell == null)
-                _cell = new NativeIOSCell(messageCell, item.GetType().FullName);
+                _cell = new TextNativeCell(messageCell, item.GetType().FullName);
             else
             {
                 _cell.NativeCell.PropertyChanged -= OnNativeCellPropertyChanged;
@@ -37,8 +38,8 @@ namespace ChatView.iOS
 
         private void OnNativeCellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var messageCell = (MessageCell)sender;
-            if (e.PropertyName == MessageCell.MessageBodyProperty.PropertyName)
+            var messageCell = (TextMessageCell)sender;
+            if (e.PropertyName == TextMessageCell.MessageBodyProperty.PropertyName)
             {
                 _cell.MessageText.Text = messageCell.MessageBody;
             }

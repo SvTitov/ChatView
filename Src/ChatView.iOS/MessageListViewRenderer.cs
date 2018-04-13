@@ -7,6 +7,7 @@ using ChatView.Shared;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using ChatView.Shared.Views;
 
 [assembly: ExportRenderer(typeof(MessageListView), typeof(ChatView.iOS.MessageListViewRenderer))]
 namespace ChatView.iOS
@@ -62,7 +63,7 @@ namespace ChatView.iOS
             }
         }
 
-        public event EventHandler<MessageCell> OnLongPress;
+        public event EventHandler<object> OnLongPress;
 
         protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {

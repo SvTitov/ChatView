@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage 
-    xmlns:chatview="clr-namespace:ChatView.Shared;assembly=ChatView.Shared"
+    xmlns:chatview="clr-namespace:ChatView.Shared.Views;assembly=ChatView.Shared"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
     x:Class="ChatViewTest.Core.ChatViewTestPage">
@@ -14,21 +14,12 @@
                 HorizontalOptions="FillAndExpand">
                 <chatview:MessageListView.ItemTemplate>
                     <DataTemplate>
-                        <chatview:MessageCell 
-                            TextFontSize="14"
-                            InfoFontSize="10"
-                            NameFontSize="16"
+                        <chatview:ImageMessageCell
+                            ImageUri="{Binding ImageUri}"
                             CornerRadius="16"
-                            IncomingColor="#827717"
-                            OutgoingColor="#689F38"
-                            TextFontColor="#4E342E"
-                            NameFontColor="#FF3D00"
-                            InfoFontColor="#607D8B"
-                            MessageBody="{Binding Message}"
-                            Date="{Binding Date}"
-                            IsIncoming="{Binding IsIncoming}"
-                            Name="{Binding Name}"
-                            Status="{Binding Status}"/>
+                            Placeholder="ph.png">
+                            
+                        </chatview:ImageMessageCell>
                     </DataTemplate>
                 </chatview:MessageListView.ItemTemplate>
             </chatview:MessageListView>

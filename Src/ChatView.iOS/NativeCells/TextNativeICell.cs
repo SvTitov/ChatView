@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Drawing;
 using ChatView.Shared;
+using ChatView.Shared.Views;
 using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace ChatView.iOS
+namespace ChatView.iOS.NativeCells
 {
-    internal class NativeIOSCell : UITableViewCell, INativeElementView
+    internal class TextNativeCell : BaseNativeCell<TextMessageCell>
     {
-        public Element Element => NativeCell;
-        public MessageCell NativeCell { get; set; }
         private UIView _view;
 
         static internal SizeF BubblePadding = new SizeF(16, 16);
@@ -26,8 +25,8 @@ namespace ChatView.iOS
 
         #region ctor
 
-        public NativeIOSCell(MessageCell cell, string cellId)
-            : base(UITableViewCellStyle.Default, cellId)
+        public TextNativeCell(TextMessageCell cell, string cellId)
+            : base(cellId)
         {
             NativeCell = cell;
 
@@ -149,14 +148,14 @@ namespace ChatView.iOS
         void OnPropertyChangedEventHandler(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             bool needUpdate = false;
-            if (MessageCell.StatusProperty.PropertyName == e.PropertyName)
+            if (UserMessageCell.StatusProperty.PropertyName == e.PropertyName)
             {
-                StatusText.Text = StatusHelper.GetStatusString((sender as MessageCell).Status);
+                StatusText.Text = StatusHelper.GetStatusString((sender as TextMessageCell).Status);
                 needUpdate = true;
             }
-            if (MessageCell.MessageBodyProperty.PropertyName == e.PropertyName)
+            if (TextMessageCell.MessageBodyProperty.PropertyName == e.PropertyName)
             {
-                this.MessageText.Text = (sender as MessageCell).MessageBody;
+                this.MessageText.Text = (sender as TextMessageCell).MessageBody;
                 needUpdate = true;
             }
 
@@ -166,7 +165,7 @@ namespace ChatView.iOS
             }
         }
 
-        public void UpdateCell(MessageCell cell)
+        public override void UpdateCell(TextMessageCell cell)
         {
             MessageText.Text = cell.MessageBody;
             DateText.Text = cell.Date;
@@ -178,14 +177,7 @@ namespace ChatView.iOS
         }
 
 
-        static internal SizeF GetSizeForText(UIView tv, string text, UIFont font)
-        {
-            NSString s = new NSString(text);
-            var size = s.StringSize(font, new CGSize(tv.Bounds.Width * .7f - 10 - 22, tv.Bounds.Height), UILineBreakMode.WordWrap);
-            return new SizeF((float)size.Width, (float)size.Height);
-        }
-
-        public float GetHeight(UIView tv)
+        public override float GetHeight(UIView tv)
         {
             var cellSize = GetSizeForText(tv, this.NativeCell.MessageBody, UIFont.SystemFontOfSize(NativeCell.TextFontSize))
                     + BubblePadding

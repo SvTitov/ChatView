@@ -128,6 +128,13 @@
       <Project>{11443D99-58DB-4AFA-B6A1-7AEDD4411F9B}</Project>
       <Name>ChatViewTest.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Src\ChatView.iOS\ChatView.iOS.csproj">
+      <Project>{8919D881-4A5E-4721-B5AE-26D3626544B4}</Project>
+      <Name>ChatView.iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ph.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\netstandard1.0\Xamarin.Forms.targets')" />

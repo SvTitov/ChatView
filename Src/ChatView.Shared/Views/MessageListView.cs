@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ChatView.Shared
+namespace ChatView.Shared.Views
 {
     public class MessageListView : ListView
     {
@@ -34,17 +34,17 @@ namespace ChatView.Shared
 
         public MessageListView()
         {
-            ItemTemplate = new DataTemplate(() => 
-            {
-                var cell = new MessageCell();
-                cell.SetBinding(MessageCell.MessageBodyProperty, "Message");
-                cell.SetBinding(MessageCell.DateProperty, "Date");
-                cell.SetBinding(MessageCell.IsIncomingProperty, "IsIncoming");
-                cell.SetBinding(MessageCell.NameProperty, "Name");
-                cell.SetBinding(MessageCell.StatusProperty, "Status");
+            //ItemTemplate = new DataTemplate(() => 
+            //{
+            //    //var cell = new MessageCell();
+            //    //cell.SetBinding(MessageCell.MessageBodyProperty, "Message");
+            //    //cell.SetBinding(MessageCell.DateProperty, "Date");
+            //    //cell.SetBinding(MessageCell.IsIncomingProperty, "IsIncoming");
+            //    //cell.SetBinding(MessageCell.NameProperty, "Name");
+            //    //cell.SetBinding(MessageCell.StatusProperty, "Status");
 
-                return cell;
-            });
+            //    //return cell;
+            //});
 
             this.SeparatorVisibility = SeparatorVisibility.None;
         }

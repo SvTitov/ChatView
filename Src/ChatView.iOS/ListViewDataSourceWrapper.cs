@@ -1,4 +1,6 @@
 ﻿using System;
+using ChatView.iOS.NativeCells;
+using ChatView.Shared.Views;
 using Foundation;
 using UIKit;
 
@@ -55,7 +57,9 @@ namespace ChatView.iOS
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            var uiCell = (NativeIOSCell)GetCellInternal(tableView, indexPath);
+            //TODO change ImageNativeCell to BaseNativeCell
+            var lol = GetCellInternal(tableView, indexPath);
+            var uiCell = (ImageNativeCell)GetCellInternal(tableView, indexPath);
 
             uiCell.SetNeedsLayout();
             uiCell.LayoutIfNeeded();

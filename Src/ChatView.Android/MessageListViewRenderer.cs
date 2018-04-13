@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using ChatView;
 using ChatView.Shared;
+using ChatView.Shared.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 

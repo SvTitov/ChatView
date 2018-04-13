@@ -12,4 +12,9 @@
   <ItemGroup>
     <EmbeddedResource Remove="CustomChatView.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Abstraction\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
 </Project>
