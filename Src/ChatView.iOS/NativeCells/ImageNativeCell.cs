@@ -9,28 +9,34 @@ using System.Reactive.Linq;
 using Xamarin.Forms.Platform.iOS;
 using Splat;
 using System.Threading.Tasks;
+using Foundation;
 
 namespace ChatView.iOS.NativeCells
 {
     public class ImageNativeCell : BaseNativeCell<ImageMessageCell>
     {
         private UIView _view;
-        private IBitmap _currentImage;
         private UIImage _placeholder;
         static internal int _space = 20;
 
 
         public UIImageView ImageView { get; set; }
         public UIActivityIndicatorView ActivityIndicator { get; set;}
+        private CGRect _parentSize;
 
         static internal SizeF BubblePadding = new SizeF(16, 16);
+        private UIImage _image;
+        private CGSize _resizedImage;
 
-        public ImageNativeCell(ImageMessageCell cell, string cellId)
+        public ImageNativeCell(ImageMessageCell cell, string cellId, CGRect parentSize)
             : base(cellId)
         {
-            BlobCache.ApplicationName = "image__cache";
+            cell.PropertyChanged -= OnPropertyChangedEventHandler;
+            cell.PropertyChanged += OnPropertyChangedEventHandler;
 
             NativeCell = cell;
+
+            _parentSize = parentSize;
 
             ContentView.BackgroundColor = UIColor.Clear;
             SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -46,6 +52,7 @@ namespace ChatView.iOS.NativeCells
             ActivityIndicator.HidesWhenStopped = true;
             ActivityIndicator.ActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.White;
 
+            _view.BackgroundColor = NativeCell.IsIncoming ? NativeCell.IncomingColor.ToUIColor() : NativeCell.OutgoingColor.ToUIColor();
 
             _view.AddSubview(ImageView);
             _view.AddSubview(ActivityIndicator);
@@ -53,49 +60,45 @@ namespace ChatView.iOS.NativeCells
         }
 
 
-		public async override void LayoutSubviews()
+		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
-
-            if (_currentImage != null)
-                return;
-
-            ActivityIndicator.Center = _view.Center;
-            ActivityIndicator.StartAnimating();
-
             var frame = ContentView.Frame;
 
-            _view.BackgroundColor = NativeCell.IsIncoming ? NativeCell.IncomingColor.ToUIColor() : NativeCell.OutgoingColor.ToUIColor();
+            if (NativeCell.ImageByteArray == null)
+            {
+                ActivityIndicator.Center = _view.Center;
+                ActivityIndicator.StartAnimating();
 
-            // if we have placeholder
-            if (!string.IsNullOrEmpty(NativeCell.Placeholder))
-                InitPlaceholder(frame);
+                // if we have placeholder
+                // TODO set empty bubble if placeholder is null
+                if (!string.IsNullOrEmpty(NativeCell.Placeholder))
+                    InitPlaceholder(frame);
+            }
+            else
+            {
+                var data = NSData.FromArray(NativeCell.ImageByteArray);
+                _image = UIImage.LoadFromData(data);
+
+                _resizedImage = ResizeImage(new CGSize(_image.Size.Width, _image.Size.Height), new CGSize(this.Bounds.Width * 0.7,
+                                                                                                            _parentSize.Height * 0.8));
+
+                ImageView.Frame = new CGRect(frame.X,
+                                             frame.Y,
+                                             _resizedImage.Width,
+                                             _resizedImage.Height);
+
+                _view.Frame = new CGRect(frame.X + BubblePadding.Width,
+                                             frame.Y,
+                                             _resizedImage.Width,
+                                         _resizedImage.Height + 20);
+
+                ImageView.Image = _image;
+
+                ActivityIndicator.StopAnimating();
+            }
 		}
 
-		public async override void MovedToSuperview()
-		{
-            base.MovedToSuperview();
-
-            var frame = ContentView.Frame;
-
-            _currentImage = await BlobCache.LocalMachine.LoadImageFromUrl(NativeCell.ImageUri.AbsoluteUri, true);
-            var _resizedImage = ResizeImage(new CGSize(_currentImage.Width, _currentImage.Height), new CGSize(this.Bounds.Width * 0.7,
-                                                                                                          this.Bounds.Height * 0.8));
-
-            ImageView.Frame = new CGRect(frame.X,
-                                         frame.Y,
-                                         _resizedImage.Width,
-                                         _resizedImage.Height);
-
-            _view.Frame = new CGRect(frame.X + BubblePadding.Width,
-                                         frame.Y,
-                                         _resizedImage.Width,
-                                     _resizedImage.Height + 20);
-
-            ImageView.Image = _currentImage.ToNative();
-
-            ActivityIndicator.StopAnimating();
-		}
 
 		private void InitPlaceholder(CGRect frame)
         {
@@ -131,9 +134,8 @@ namespace ChatView.iOS.NativeCells
 
 		public override float GetHeight(UIView tv)
 		{
-            var image = BlobCache.LocalMachine.LoadImage(NativeCell.ImageUri.AbsolutePath).GetAwaiter<IBitmap>().GetResult();
-            if (image != null)
-                return image.Height + _space;
+            if (_image != null)
+                return (float) _resizedImage.Height + 20 + _space;
             if (_placeholder != null)
                 return (float) _placeholder.Size.Height + 20 + _space;
 
@@ -148,6 +150,40 @@ namespace ChatView.iOS.NativeCells
             _view.Layer.BorderColor = UIColor.Black.CGColor;
             _view.Layer.BorderWidth = 0f;
             _view.Layer.CornerRadius = NativeCell.CornerRadius;
+        }
+
+        void OnPropertyChangedEventHandler(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            bool needUpdate = false;
+            if (ImageMessageCell.ImageByteArrayProperty.PropertyName == e.PropertyName)
+            {
+                needUpdate = true;
+            }
+
+            if (needUpdate)
+            {
+                InvokeOnMainThread(() =>
+                {
+                    try
+                    {
+                        SetNeedsLayout();
+                        LayoutIfNeeded();
+                        var tv = (this.Superview as UITableView);
+                        if (tv != null)
+                        {
+                            var path = tv.IndexPathForCell(this);
+                            if (path != null)
+                            {
+                                //tv.BeginUpdates();
+                                tv.ReloadRows(new[] { path }, UITableViewRowAnimation.None);
+                                //tv.EndUpdates();
+                            }
+                        }
+                    }
+                    catch 
+                    {   }
+                });
+            }
         }
     }
 }

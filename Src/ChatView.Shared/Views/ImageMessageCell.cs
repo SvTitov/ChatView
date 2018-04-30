@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ChatView.Shared.Views
@@ -30,6 +31,24 @@ namespace ChatView.Shared.Views
         {
             get { return (string)GetValue(PlaceholderProperty); }
             set { SetValue(PlaceholderProperty, value); }
+        }
+
+        public static readonly BindableProperty ImageByteArrayProperty =
+            BindableProperty.Create("ImageByteArray", typeof(byte[]), typeof(MessageCell), null);
+
+        public byte[] ImageByteArray
+        {
+            get { return (byte[])GetValue(ImageByteArrayProperty);}
+            set { SetValue(ImageByteArrayProperty, value); }
+        }
+
+        public static readonly BindableProperty ImageLoadCallbackProperty =
+            BindableProperty.Create("ImageLoadCallback", typeof(Func<Task<byte[]>>), typeof(MessageCell), null);
+
+        public Func<Task<byte[]>> ImageLoadCallback
+        {
+            get { return (Func<Task<byte[]>>)GetValue(ImageLoadCallbackProperty); }
+            set { SetValue(ImageLoadCallbackProperty, value); }
         }
     }
 }

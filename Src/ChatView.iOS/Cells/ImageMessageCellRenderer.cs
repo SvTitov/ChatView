@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using ChatView.iOS.NativeCells;
 using ChatView.Shared.Views;
 using UIKit;
@@ -19,7 +20,7 @@ namespace ChatView.iOS.Cells
 
             _cell = reusableCell as ImageNativeCell;
             if (_cell == null)
-                _cell = new ImageNativeCell(messageCell, item.GetType().FullName);
+                _cell = new ImageNativeCell(messageCell, item.GetType().FullName, tv.Bounds);
             else
             {
                 _cell.NativeCell.PropertyChanged -= OnNativeCellPropertyChanged;
@@ -31,6 +32,18 @@ namespace ChatView.iOS.Cells
 
             _cell.ContentView.Transform = CoreGraphics.CGAffineTransform.MakeScale(1f, -1f);
 
+            // TODO cancel task
+            if (messageCell.ImageLoadCallback != null)
+            {
+                Task.Run(async () =>
+                {
+                    if (messageCell.ImageByteArray == null)
+                    {
+                        var result = await messageCell.ImageLoadCallback();
+                        messageCell.ImageByteArray = result;
+                    }
+                });
+            }
 
             return _cell;
 		}

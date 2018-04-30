@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ChatView.Shared.Abstraction;
 using ChatView.Shared.Models;
 
@@ -30,7 +31,10 @@ namespace ChatView.Shared
             Uri imageUri,
             string date,
             bool isIncoming,
+            string placeholder = null,
             MessageStatuses messageStatus = MessageStatuses.None,
+            byte[] imageArray = null,
+            Func<Task<byte[]>> callback = null,
             string name = null,
             object tag = null)
         {
@@ -39,9 +43,12 @@ namespace ChatView.Shared
                 ImageUri = imageUri,
                 Date = date,
                 IsIncoming = isIncoming,
+                ImageByteArray = imageArray,
                 Status = messageStatus,
+                ImageLoadCallback = callback,
                 Name = name,
-                Tag = tag
+                Tag = tag,
+                Placeholder = placeholder
             };
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ChatView.Shared;
@@ -24,12 +25,16 @@ namespace ChatViewTest.Core
             }
         }
 
+        public ICommand AddCommand { get; set; }
+
         public ChatViewModel()
         {
-            List.Add(new MessagesBuilder()
-                     .CreateImageMessage(new Uri(@"http://cdn3.craftsy.com/blog/wp-content/uploads/2015/01/cloudland_falls_spring_vertical_4408-Edit.jpg"), DateTime.Now.ToString(), true));
+            HttpClient client = new HttpClient(); 
 
-            List.Add(new MessagesBuilder().CreateImageMessage(new Uri(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426"), DateTime.Now.ToString(), true));
+            //List.Add(new MessagesBuilder()
+                     //.CreateImageMessage(new Uri(@"http://cdn3.craftsy.com/blog/wp-content/uploads/2015/01/cloudland_falls_spring_vertical_4408-Edit.jpg"), DateTime.Now.ToString(), true));
+
+            //List.Add(new MessagesBuilder().CreateImageMessage(new Uri(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426"), DateTime.Now.ToString(), true));
             //List.Add(new MessagesBuilder().CreateTextMessage("good for you dw w  dwa wad awd aw dawd awd wad wd ad ada dad a dad awd ", "242", false));
 
 //            List.AddRange(new MessageModel[] { 
@@ -42,8 +47,27 @@ namespace ChatViewTest.Core
             //    new MessageModel { Message = "Oh, that's cool! 💖".ToString(), Date = DateTime.Now.ToString("yyyy.MM.dd"), IsIncoming = ((count++ % 2) != 0), Status = MessageStatuses.Sent, Name="Name" },
             //});
 
-            //AddCommand = new Command(OnAdd);
+            AddCommand = new Command(OnAdd);
         }
+
+        private async void OnAdd(object obj)
+        {
+            HttpClient client = new HttpClient();
+            var result = await client.GetByteArrayAsync(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426");
+            var image = new MessagesBuilder().CreateImageMessage(new Uri(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426"),
+                                                                 DateTime.Now.ToString(),
+                                                                 true,
+                                                                 callback: async ()=> await client.GetByteArrayAsync(@"https://www.hd-wallpapersdownload.com/script/bulk-upload/lion-big-wallpapers.jpg") );
+            List.Add(image);
+            var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("YYYY.MM.dd"), false);
+            List.Add(textImage);
+            //Nothing(async () => await client.GetByteArrayAsync(string.Empty));
+        }
+
+        //private async void Nothing(Func<Task<byte[]>> func)
+        //{
+        //    var res = await func();
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 

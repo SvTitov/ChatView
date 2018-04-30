@@ -6,22 +6,24 @@
     x:Class="ChatViewTest.Core.ChatViewTestPage">
 	<ContentPage.Content>
         <StackLayout >
-            <!--<Button Command="{Binding AddCommand}" Text="Click"/>-->
+            <Button Command="{Binding AddCommand}" Text="Click"/>
             <chatview:MessageListView 
                 x:Name="OfList"
                 ItemsSource="{Binding List}"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">
-                <chatview:MessageListView.ItemTemplate>
+               <!-- <chatview:MessageListView.ItemTemplate>
                     <DataTemplate>
                         <chatview:ImageMessageCell
                             ImageUri="{Binding ImageUri}"
+                            ImageByteArray="{Binding ImageByteArray}"
+                            ImageLoadCallback="{Binding ImageLoadCallback}"
                             CornerRadius="16"
                             Placeholder="ph.png">
                             
                         </chatview:ImageMessageCell>
                     </DataTemplate>
-                </chatview:MessageListView.ItemTemplate>
+                </chatview:MessageListView.ItemTemplate>-->
             </chatview:MessageListView>
         </StackLayout>
 	</ContentPage.Content>

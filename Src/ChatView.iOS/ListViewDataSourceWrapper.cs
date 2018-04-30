@@ -57,14 +57,20 @@ namespace ChatView.iOS
 
         public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
         {
-            //TODO change ImageNativeCell to BaseNativeCell
-            var lol = GetCellInternal(tableView, indexPath);
-            var uiCell = (ImageNativeCell)GetCellInternal(tableView, indexPath);
+            var uiCell = GetCellInternal(tableView, indexPath);
 
             uiCell.SetNeedsLayout();
             uiCell.LayoutIfNeeded();
 
-            return uiCell.GetHeight(tableView);
+            switch (uiCell)
+            {
+                case ImageNativeCell cell:
+                    return cell.GetHeight(tableView);
+                case TextNativeCell cell:
+                    return cell.GetHeight(tableView);
+                default:
+                    return base.GetHeightForRow(tableView, indexPath);
+            }
         }
 
         private UITableViewCell GetCellInternal(UITableView tableView, NSIndexPath indexPath)

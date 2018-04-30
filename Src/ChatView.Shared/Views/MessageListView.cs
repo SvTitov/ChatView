@@ -18,7 +18,7 @@ namespace ChatView.Shared.Views
             defaultValue: false,
             propertyChanged: IsScrollChanged);
 
-        public bool IsScroll 
+        public bool IsScroll
         {
             get => (bool)GetValue(IsScrollProperty);
             set => SetValue(IsScrollProperty, value);
@@ -27,7 +27,7 @@ namespace ChatView.Shared.Views
         private static void IsScrollChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = (MessageListView)bindable;
-            control.IsScroll = (bool) newValue;
+            control.IsScroll = (bool)newValue;
         }
 
         #endregion
@@ -45,6 +45,33 @@ namespace ChatView.Shared.Views
 
             //    //return cell;
             //});
+
+            ItemTemplate = new CellDataTemplateSelector
+            {
+                ImageCellTemplate = new DataTemplate(() =>
+                {
+                    ImageMessageCell cell = new ImageMessageCell();
+                    cell.SetBinding(ImageMessageCell.ImageUriProperty, "ImageUri");
+                    cell.SetBinding(ImageMessageCell.ImageByteArrayProperty, "ImageByteArray");
+                    cell.SetBinding(ImageMessageCell.ImageLoadCallbackProperty, "ImageLoadCallback");
+                    cell.SetBinding(UserMessageCell.CornerRadiusProperty, "CornerRadius");
+                    cell.SetBinding(ImageMessageCell.PlaceholderProperty, "Placeholder");
+
+                    return cell;
+                }),
+                TextCellTemplate = new DataTemplate(() =>
+                {
+                    var cell = new TextMessageCell();
+                    cell.SetBinding(TextMessageCell.MessageBodyProperty, "Message");
+                    cell.SetBinding(UserMessageCell.DateProperty, "Date");
+                    cell.SetBinding(UserMessageCell.IsIncomingProperty, "IsIncoming");
+                    cell.SetBinding(UserMessageCell.NameProperty, "Name");
+                    cell.SetBinding(UserMessageCell.StatusProperty, "Status");
+
+                    return cell;
+                })
+            };
+
 
             this.SeparatorVisibility = SeparatorVisibility.None;
         }
