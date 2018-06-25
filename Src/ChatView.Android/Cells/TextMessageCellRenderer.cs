@@ -3,21 +3,23 @@ using System.ComponentModel;
 using ChatView.Shared;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using ChatView.Droid.NativeCells;
+using ChatView.Shared.Views;
 
-[assembly: ExportRenderer(typeof(MessageCell), typeof(ChatView.Droid.MessageCellRenderer))]
-namespace ChatView.Droid
+[assembly: ExportRenderer(typeof(TextMessageCell), typeof(ChatView.Droid.Cells.TextMessageCellRenderer))]
+namespace ChatView.Droid.Cells
 {
-    public class MessageCellRenderer : ViewCellRenderer
+    public class TextMessageCellRenderer : ViewCellRenderer
     {
-        NativeAndroidCell _cell;
+        TextNativeCell _cell;
 
         protected override Android.Views.View GetCellCore(Cell item, Android.Views.View convertView, Android.Views.ViewGroup parent, Android.Content.Context context)
         {
-            var messageCell = (MessageCell) item;
+            var messageCell = (TextMessageCell) item;
 
-            _cell = _cell as NativeAndroidCell;
+            _cell = _cell as TextNativeCell;
             if (_cell == null)
-                _cell = new NativeAndroidCell(context, messageCell);
+                _cell = new TextNativeCell(context, messageCell);
             else
                 _cell.NativeCell.PropertyChanged -= OnNativeCellPropertyChanged;
 
@@ -29,14 +31,14 @@ namespace ChatView.Droid
 
         private void OnNativeCellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var messageCell = (MessageCell)sender;
-            if (e.PropertyName == MessageCell.MessageBodyProperty.PropertyName)
+            var messageCell = (TextMessageCell)sender;
+            if (e.PropertyName == TextMessageCell.MessageBodyProperty.PropertyName)
                 _cell.MessageText.Text = messageCell.MessageBody;
-            if (e.PropertyName == MessageCell.DateProperty.PropertyName)
+            if (e.PropertyName == TextMessageCell.DateProperty.PropertyName)
                 _cell.DateText.Text = messageCell.Date;
-            if (e.PropertyName == MessageCell.NameProperty.PropertyName)
+            if (e.PropertyName == TextMessageCell.NameProperty.PropertyName)
                 _cell.NameText.Text = messageCell.Name;
-            if (e.PropertyName == MessageCell.StatusProperty.PropertyName)
+            if (e.PropertyName == TextMessageCell.StatusProperty.PropertyName)
                 _cell.StatusText.Text = StatusHelper.GetStatusString(messageCell.Status);
         }
     }

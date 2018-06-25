@@ -3,15 +3,16 @@ using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Widget;
 using ChatView.Shared;
+using ChatView.Shared.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-namespace ChatView.Droid
+namespace ChatView.Droid.NativeCells
 {
-    public class NativeAndroidCell : LinearLayout, INativeElementView
+    public class TextNativeCell : LinearLayout, INativeElementView
     {
         public Element Element => NativeCell;
-        public MessageCell NativeCell { get; private set; }
+        public TextMessageCell NativeCell { get; private set; }
 
         public TextView MessageText { get; set; }
         public TextView DateText { get; set; }
@@ -23,7 +24,7 @@ namespace ChatView.Droid
         private const int Status_Text_Id = 102;
         private const int Name_Text_Id = 103;
 
-        public NativeAndroidCell(Context context, MessageCell cell)
+        public TextNativeCell(Context context, TextMessageCell cell)
             : base(context)
         {
             NativeCell = cell;
@@ -119,7 +120,7 @@ namespace ChatView.Droid
             return layout;
         }
 
-        public void UpdateCell(MessageCell messageCell)
+        public void UpdateCell(TextMessageCell messageCell)
         {
             this.MessageText.Text = messageCell.MessageBody;
             this.DateText.Text = messageCell.Date;
