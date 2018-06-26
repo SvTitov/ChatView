@@ -8,7 +8,6 @@
         <StackLayout >
             <Button Command="{Binding AddCommand}" Text="Click"/>
             <chatview:MessageListView 
-                x:Name="OfList"
                 ItemsSource="{Binding List}"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand">

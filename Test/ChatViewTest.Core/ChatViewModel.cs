@@ -61,7 +61,6 @@ namespace ChatViewTest.Core
             List.Add(image);
             var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("YYYY.MM.dd"), false);
             List.Add(textImage);
-            //Nothing(async () => await client.GetByteArrayAsync(string.Empty));
         }
 
         //private async void Nothing(Func<Task<byte[]>> func)

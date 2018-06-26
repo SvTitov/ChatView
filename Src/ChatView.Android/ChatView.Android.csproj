@@ -112,6 +112,8 @@
     <Compile Include="MessageAdapter.cs" />
     <Compile Include="Cells\TextMessageCellRenderer.cs" />
     <Compile Include="NativeCell\TextNativeCell.cs" />
+    <Compile Include="Cells\ImageMessageCellRenderer.cs" />
+    <Compile Include="NativeCell\ImageNativeCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatView.Shared\ChatView.Shared.csproj">
