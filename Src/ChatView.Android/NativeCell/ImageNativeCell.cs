@@ -16,6 +16,7 @@ namespace ChatView.Droid.NativeCell
         public ImageView Image { get; set; }
 
         private Android.Views.View _mainView;
+        private LinearLayout _linearLayout;
 
         public ImageNativeCell(Context context, ImageMessageCell nativeCell)
             : base(context)
@@ -24,10 +25,12 @@ namespace ChatView.Droid.NativeCell
 
             var inflater = (LayoutInflater) context.GetSystemService(Context.LayoutInflaterService);
             _mainView = inflater.Inflate(Resource.Layout.ImageCellTemplate, null);
+            _linearLayout = _mainView.FindViewById<LinearLayout>(Resource.Id.ll);
+            _linearLayout.SetGravity(NativeCell.IsIncoming ? GravityFlags.Right : GravityFlags.Left);
+
             Image = _mainView.FindViewById<ImageView>(Resource.Id.imageContainer);
 
             Image.Background = GetRoundedDrawable();
-
 
             if (NativeCell.ImageByteArray != null)
             {
@@ -43,7 +46,7 @@ namespace ChatView.Droid.NativeCell
 
         internal void UpdateCell(ImageMessageCell messageCell)
         {
-            
+            NativeCell = messageCell;
         }
 
         /// <summary>
@@ -88,10 +91,10 @@ namespace ChatView.Droid.NativeCell
                 var decoded = BitmapFactory.DecodeByteArray(imageData, 0, imageData.Length);
                 var roundedImage = CreateRoundedBitmap(decoded, NativeCell.CornerRadius * 2);
 
-                Image.LayoutParameters.Width = roundedImage.Width;
-                Image.LayoutParameters.Height = roundedImage.Height;
+                this.Image.LayoutParameters.Width = roundedImage.Width;
+                this.Image.LayoutParameters.Height = roundedImage.Height;
 
-                Image.SetImageBitmap(Bitmap.CreateScaledBitmap(roundedImage, roundedImage.Width, roundedImage.Height, false));
+                this.Image.SetImageBitmap(Bitmap.CreateScaledBitmap(roundedImage, roundedImage.Width, roundedImage.Height, false));
             });
         }
     }

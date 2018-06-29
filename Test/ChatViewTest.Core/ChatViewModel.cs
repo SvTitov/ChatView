@@ -50,16 +50,19 @@ namespace ChatViewTest.Core
             AddCommand = new Command(OnAdd);
         }
 
+        bool lastAnswer = false;
         private async void OnAdd(object obj)
         {
             HttpClient client = new HttpClient();
+            lastAnswer ^= true;
             var image = new MessagesBuilder().CreateImageMessage(new Uri(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426"),
                                                                  DateTime.Now.ToString(),
-                                                                 true,
+                                                                 lastAnswer,
                                                                  callback: async ()=> await client.GetByteArrayAsync(@"https://i2.wp.com/beebom.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg?resize=640%2C426") );
             List.Add(image);
-            var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("yyyy.MM.dd"), false);
-            List.Add(textImage);
+
+            //var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("yyyy.MM.dd"), false);
+            //List.Add(textImage);
         }
 
         //private async void Nothing(Func<Task<byte[]>> func)

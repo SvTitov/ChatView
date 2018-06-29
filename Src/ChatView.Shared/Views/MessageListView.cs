@@ -56,6 +56,8 @@ namespace ChatView.Shared.Views
                     cell.SetBinding(ImageMessageCell.ImageLoadCallbackProperty, "ImageLoadCallback");
                     cell.SetBinding(UserMessageCell.CornerRadiusProperty, "CornerRadius");
                     cell.SetBinding(ImageMessageCell.PlaceholderProperty, "Placeholder");
+                    cell.SetBinding(UserMessageCell.IsIncomingProperty, "IsIncoming");
+
 
                     return cell;
                 }),
