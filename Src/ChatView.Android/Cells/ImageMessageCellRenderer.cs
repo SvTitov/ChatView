@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Views;
 using ChatView.Droid.NativeCell;
@@ -29,12 +30,30 @@ namespace ChatView.Droid.Cells
             messageCell.PropertyChanged += OnNativeCellPropertyChanged;
             _cell.UpdateCell(messageCell);
 
+            if (messageCell.ImageLoadCallback != null)
+            {
+                Task.Run(async () =>
+                {
+                    if (messageCell.ImageByteArray == null)
+                    {
+                        var result = await messageCell.ImageLoadCallback();
+                        messageCell.ImageByteArray = result;
+                    }
+                });
+            }
+
+
             return _cell;
         }
 
         private void OnNativeCellPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //var messageCell = (TextMessageCell)sender;
+            var messageCell = (ImageMessageCell)sender;
+            if (e.PropertyName == ImageMessageCell.ImageByteArrayProperty.PropertyName)
+            {
+                _cell.UpdateImage(messageCell.ImageByteArray);
+            }
+
             //if (e.PropertyName == TextMessageCell.MessageBodyProperty.PropertyName)
                 //_cell.MessageText.Text = messageCell.MessageBody;
         }

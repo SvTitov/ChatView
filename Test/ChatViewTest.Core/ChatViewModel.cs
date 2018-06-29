@@ -59,8 +59,8 @@ namespace ChatViewTest.Core
                                                                  true,
                                                                  callback: async ()=> await client.GetByteArrayAsync(@"https://www.hd-wallpapersdownload.com/script/bulk-upload/lion-big-wallpapers.jpg") );
             List.Add(image);
-            var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("YYYY.MM.dd"), false);
-            List.Add(textImage);
+            //var textImage = new MessagesBuilder().CreateTextMessage("Hello", DateTime.Now.ToString("YYYY.MM.dd"), false);
+            //List.Add(textImage);
         }
 
         //private async void Nothing(Func<Task<byte[]>> func)
