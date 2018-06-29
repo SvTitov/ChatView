@@ -34,7 +34,6 @@ namespace ChatView.Droid
                 Control.ItemLongClick += OnLongClick;
             }
 		}
-
         private void OnLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
             var item = Control.GetItemAtPosition(e.Position);

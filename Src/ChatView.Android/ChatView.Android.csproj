@@ -117,6 +117,7 @@
     <Compile Include="Cells\ImageMessageCellRenderer.cs" />
     <Compile Include="NativeCell\ImageNativeCell.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
+    <Content Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChatView.Shared\ChatView.Shared.csproj">
@@ -128,10 +129,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\layout\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ImageCellTemplate.axml" />
   </ItemGroup>
